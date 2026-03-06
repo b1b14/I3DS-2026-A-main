@@ -12,7 +12,10 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    return (
+      savedTheme === "dark" ||
+      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
   });
 
   //Utilizando uma CHAVE de API do arquivo .env
@@ -36,8 +39,6 @@ const App = () => {
     //Alimentando a variavel movies
     setMovies(data.Search);
   };
- 
-  
 
   useEffect(() => {
     (async () => {
@@ -52,7 +53,11 @@ const App = () => {
 
   return (
     <div id="App">
-      <button className="theme-toggle" onClick={toggleTheme} title={isDarkMode ? "Modo Claro" : "Modo Escuro"}>
+      <button
+        className="theme-toggle"
+        onClick={toggleTheme}
+        title={isDarkMode ? "Modo Claro" : "Modo Escuro"}
+      >
         {isDarkMode ? "☀️" : "🌙"}
       </button>
 

@@ -15,7 +15,7 @@
 
 body[data-theme="dark"] {
   /* Dark theme */
-  --bg-primary: #077A7D;
+  --bg-primary: #077a7d;
   --bg-secondary: #313636;
   --text-primary: #f5f5f5;
   --text-secondary: #f0f0f0;
@@ -28,7 +28,7 @@ body[data-theme="dark"] {
 @media (prefers-color-scheme: dark) {
   body:not([data-theme]) {
     /* Dark theme para preferência do sistema quando não há tema salvo */
-    --bg-primary: #077A7D;
+    --bg-primary: #077a7d;
     --bg-secondary: #313636;
     --text-primary: #f5f5f5;
     --text-secondary: #f0f0f0;
