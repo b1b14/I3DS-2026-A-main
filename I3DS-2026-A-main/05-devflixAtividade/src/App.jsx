@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-import logo from "./assets/devflix.png";
-import lupa from "./assets/search.svg";
+import logo from "./assets/Biafilx.png";
+import lupa from "./assets/search (2).png";
 
 import Rodape from "./components/Rodape/Rodape";
 import MovieCard from "./components/MovieCard/MovieCard";

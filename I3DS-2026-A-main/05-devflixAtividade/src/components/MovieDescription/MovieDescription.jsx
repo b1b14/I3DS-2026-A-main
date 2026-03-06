@@ -2,14 +2,49 @@ import { useEffect, useState } from "react";
 import styles from "./MovieDescription.module.css";
 
 const MovieDescription = (props) => {
-  const [movieDesc, setMovieDesc] = useState([]);
+  const [movieDesc, setMovieDesc] = useState({});
+  const [translatedPlot, setTranslatedPlot] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
+
+  const translateToPtBr = async (text) => {
+    try {
+      const response = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt-BR`
+      );
+      const data = await response.json();
+
+      return data?.responseData?.translatedText || text;
+    } catch (error) {
+      console.error("Erro ao traduzir sinopse:", error);
+      return text;
+    }
+  };
 
   useEffect(() => {
-    fetch(`${props.apiUrl}&i=${props.movieID}`)
-      .then((response) => response.json())
-      .then((data) => setMovieDesc(data))
-      .catch((error) => console.error(error));
-  }, []);
+    const loadMovie = async () => {
+      try {
+        const response = await fetch(`${props.apiUrl}&i=${props.movieID}`);
+        const data = await response.json();
+
+        setMovieDesc(data);
+
+        if (data?.Plot && data.Plot !== "N/A") {
+          setIsTranslating(true);
+          const translated = await translateToPtBr(data.Plot);
+          setTranslatedPlot(translated);
+          setIsTranslating(false);
+          return;
+        }
+
+        setTranslatedPlot("Sinopse indisponível.");
+      } catch (error) {
+        console.error(error);
+        setTranslatedPlot("Não foi possível carregar a sinopse.");
+      }
+    };
+
+    loadMovie();
+  }, [props.apiUrl, props.movieID]);
 
   return (
     <div className={styles.modalBackdrop} onClick={props.click}>
@@ -29,6 +64,7 @@ const MovieDescription = (props) => {
               <a
                 href={`https://google.com/search?q=${encodeURIComponent(movieDesc.Title)}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 ▶️ Assistir
               </a>
@@ -46,7 +82,9 @@ const MovieDescription = (props) => {
           </div>
         </div>
         <div className={styles.desc}>
-          <p>Sinopse: {movieDesc.Plot}</p>
+          <p>
+            Sinopse: {isTranslating ? "Traduzindo..." : translatedPlot || movieDesc.Plot}
+          </p>
         </div>
       </div>
     </div>
