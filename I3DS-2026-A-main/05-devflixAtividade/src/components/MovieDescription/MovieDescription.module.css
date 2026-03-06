@@ -61,6 +61,35 @@
   justify-content: center;
 }
 
+.btnTranslate {
+  position: absolute;
+  top: 0;
+  right: 55px;
+  margin: 15px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  background: var(--accent-color);
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnTranslate:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.btnTranslate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .movieType {
   position: absolute;
   bottom: 0;

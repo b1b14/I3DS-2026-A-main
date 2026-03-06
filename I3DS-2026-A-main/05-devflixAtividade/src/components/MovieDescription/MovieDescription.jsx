@@ -3,8 +3,9 @@ import styles from "./MovieDescription.module.css";
 
 const MovieDescription = (props) => {
   const [movieDesc, setMovieDesc] = useState({});
-  const [translatedPlot, setTranslatedPlot] = useState("");
-  const [isTranslating, setIsTranslating] = useState(false);
+  const [translatedData, setTranslatedData] = useState({});
+  const [isPtBr, setIsPtBr] = useState(false);
+  const [isLoadingTranslation, setIsLoadingTranslation] = useState(false);
 
   const translateToPtBr = async (text) => {
     try {
@@ -24,26 +25,49 @@ const MovieDescription = (props) => {
     }
   };
 
+  const translateAllFields = async () => {
+    if (isPtBr) {
+      setIsPtBr(false);
+      return;
+    }
+
+    setIsLoadingTranslation(true);
+
+    try {
+      const fieldsToTranslate = {
+        Title: movieDesc.Title,
+        Genre: movieDesc.Genre,
+        Plot: movieDesc.Plot,
+        Actors: movieDesc.Actors,
+      };
+
+      const translated = {};
+
+      for (const [key, value] of Object.entries(fieldsToTranslate)) {
+        if (value && value !== "N/A") {
+          translated[key] = await translateToPtBr(value);
+        } else {
+          translated[key] = value;
+        }
+      }
+
+      setTranslatedData(translated);
+      setIsPtBr(true);
+    } catch (error) {
+      console.error("Erro ao traduzir campos:", error);
+    } finally {
+      setIsLoadingTranslation(false);
+    }
+  };
+
   useEffect(() => {
     const loadMovie = async () => {
       try {
         const response = await fetch(`${props.apiUrl}&i=${props.movieID}`);
         const data = await response.json();
-
         setMovieDesc(data);
-
-        if (data?.Plot && data.Plot !== "N/A") {
-          setIsTranslating(true);
-          const translated = await translateToPtBr(data.Plot);
-          setTranslatedPlot(translated);
-          setIsTranslating(false);
-          return;
-        }
-
-        setTranslatedPlot("Sinopse indisponível.");
       } catch (error) {
         console.error(error);
-        setTranslatedPlot("Não foi possível carregar a sinopse.");
       }
     };
 
@@ -60,11 +84,20 @@ const MovieDescription = (props) => {
             X
           </button>
 
+          <button 
+            className={styles.btnTranslate} 
+            onClick={translateAllFields}
+            disabled={isLoadingTranslation}
+            title={isPtBr ? "Mostrar original (EN)" : "Traduzir para PT-BR"}
+          >
+            {isLoadingTranslation ? "⏳" : isPtBr ? "EN" : "PT-BR"}
+          </button>
+
           <div className={styles.movieType}>
             <div>
               <img src="/favicon.png" alt="" />
               {movieDesc.Type}
-              <h1>{movieDesc.Title}</h1>
+              <h1>{isPtBr && translatedData.Title ? translatedData.Title : movieDesc.Title}</h1>
               <a
                 href={`https://google.com/search?q=${encodeURIComponent(movieDesc.Title)}`}
                 target="_blank"
@@ -81,14 +114,14 @@ const MovieDescription = (props) => {
             {movieDesc.Released}
           </div>
           <div className={styles.containerFlex}>
-            <p>Elenco: {movieDesc.Actors}</p>
-            <p>Gênero: {movieDesc.Genre}</p>
+            <p>Elenco: {isPtBr && translatedData.Actors ? translatedData.Actors : movieDesc.Actors}</p>
+            <p>Gênero: {isPtBr && translatedData.Genre ? translatedData.Genre : movieDesc.Genre}</p>
           </div>
         </div>
         <div className={styles.desc}>
           <p>
             Sinopse:{" "}
-            {isTranslating ? "Traduzindo..." : translatedPlot || movieDesc.Plot}
+            {isPtBr && translatedData.Plot ? translatedData.Plot : (movieDesc.Plot || "Sinopse indisponível")}
           </p>
         </div>
       </div>
