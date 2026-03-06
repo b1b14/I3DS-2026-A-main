@@ -13,9 +13,21 @@
   --shadow: 0px 2px 8px var(--shadow-color);
 }
 
+body[data-theme="dark"] {
+  /* Dark theme */
+  --bg-primary: #077A7D;
+  --bg-secondary: #313636;
+  --text-primary: #f5f5f5;
+  --text-secondary: #f0f0f0;
+  --text-placeholder: #a1a1a1;
+  --accent-color: #f7e9ca;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme */
+  body:not([data-theme]) {
+    /* Dark theme para preferência do sistema quando não há tema salvo */
     --bg-primary: #077A7D;
     --bg-secondary: #313636;
     --text-primary: #f5f5f5;
@@ -45,6 +57,36 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
 #Logo {

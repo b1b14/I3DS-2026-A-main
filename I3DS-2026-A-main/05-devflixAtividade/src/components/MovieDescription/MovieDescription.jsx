@@ -9,11 +9,15 @@ const MovieDescription = (props) => {
   const translateToPtBr = async (text) => {
     try {
       const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt-BR`,
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q=${encodeURIComponent(text)}`,
       );
       const data = await response.json();
 
-      return data?.responseData?.translatedText || text;
+      if (Array.isArray(data?.[0])) {
+        return data[0].map((item) => item?.[0]).join("");
+      }
+
+      return text;
     } catch (error) {
       console.error("Erro ao traduzir sinopse:", error);
       return text;

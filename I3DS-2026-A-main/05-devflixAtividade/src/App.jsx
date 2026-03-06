@@ -10,10 +10,23 @@ import MovieCard from "./components/MovieCard/MovieCard";
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  });
 
   //Utilizando uma CHAVE de API do arquivo .env
   const apiKey = import.meta.env.VITE_OMDB_API_KEY;
   const apiUrl = `https://omdbapi.com/?apikey=${apiKey}`;
+
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => {
+      const newTheme = !prev;
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      document.body.setAttribute("data-theme", newTheme ? "dark" : "light");
+      return newTheme;
+    });
+  };
 
   //Criando a conexão com a API e trazendo informações
   const searchMovies = async (title) => {
@@ -23,15 +36,26 @@ const App = () => {
     //Alimentando a variavel movies
     setMovies(data.Search);
   };
+ 
+  
 
   useEffect(() => {
     (async () => {
       await searchMovies("Hulk"); // termo para pesquina ao carregar o site
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    document.body.setAttribute("data-theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
 
   return (
     <div id="App">
+      <button className="theme-toggle" onClick={toggleTheme} title={isDarkMode ? "Modo Claro" : "Modo Escuro"}>
+        {isDarkMode ? "☀️" : "🌙"}
+      </button>
+
       <img
         id="Logo"
         src={logo}
