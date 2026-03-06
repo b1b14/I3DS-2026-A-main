@@ -84,8 +84,8 @@ const MovieDescription = (props) => {
             X
           </button>
 
-          <button 
-            className={styles.btnTranslate} 
+          <button
+            className={styles.btnTranslate}
             onClick={translateAllFields}
             disabled={isLoadingTranslation}
             title={isPtBr ? "Mostrar original (EN)" : "Traduzir para PT-BR"}
@@ -97,7 +97,11 @@ const MovieDescription = (props) => {
             <div>
               <img src="/favicon.png" alt="" />
               {movieDesc.Type}
-              <h1>{isPtBr && translatedData.Title ? translatedData.Title : movieDesc.Title}</h1>
+              <h1>
+                {isPtBr && translatedData.Title
+                  ? translatedData.Title
+                  : movieDesc.Title}
+              </h1>
               <a
                 href={`https://google.com/search?q=${encodeURIComponent(movieDesc.Title)}`}
                 target="_blank"
@@ -114,14 +118,26 @@ const MovieDescription = (props) => {
             {movieDesc.Released}
           </div>
           <div className={styles.containerFlex}>
-            <p>Elenco: {isPtBr && translatedData.Actors ? translatedData.Actors : movieDesc.Actors}</p>
-            <p>Gênero: {isPtBr && translatedData.Genre ? translatedData.Genre : movieDesc.Genre}</p>
+            <p>
+              Elenco:{" "}
+              {isPtBr && translatedData.Actors
+                ? translatedData.Actors
+                : movieDesc.Actors}
+            </p>
+            <p>
+              Gênero:{" "}
+              {isPtBr && translatedData.Genre
+                ? translatedData.Genre
+                : movieDesc.Genre}
+            </p>
           </div>
         </div>
         <div className={styles.desc}>
           <p>
             Sinopse:{" "}
-            {isPtBr && translatedData.Plot ? translatedData.Plot : (movieDesc.Plot || "Sinopse indisponível")}
+            {isPtBr && translatedData.Plot
+              ? translatedData.Plot
+              : movieDesc.Plot || "Sinopse indisponível"}
           </p>
         </div>
       </div>
