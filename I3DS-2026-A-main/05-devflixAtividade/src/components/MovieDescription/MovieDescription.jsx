@@ -9,7 +9,7 @@ const MovieDescription = (props) => {
   const translateToPtBr = async (text) => {
     try {
       const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt-BR`
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt-BR`,
       );
       const data = await response.json();
 
@@ -83,7 +83,8 @@ const MovieDescription = (props) => {
         </div>
         <div className={styles.desc}>
           <p>
-            Sinopse: {isTranslating ? "Traduzindo..." : translatedPlot || movieDesc.Plot}
+            Sinopse:{" "}
+            {isTranslating ? "Traduzindo..." : translatedPlot || movieDesc.Plot}
           </p>
         </div>
       </div>
