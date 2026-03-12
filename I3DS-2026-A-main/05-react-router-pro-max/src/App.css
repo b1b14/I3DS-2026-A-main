@@ -1,0 +1,21 @@
+.navbar{
+  background-color: #640f0f;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  & a {
+    padding: 20px;
+    text-decoration: none;
+    color:antiquewhite;
+  }
+
+  & a:hover {
+    color: #881111;
+    background-color: #421515;
+  }
+
+  
+
+}

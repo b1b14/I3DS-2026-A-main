@@ -1,0 +1,18 @@
+footer {
+    text-align: center;
+    font-size: 14px;
+    padding-top: 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+color: black;
+
+    & a{
+        text-decoration: none;
+         color:  #640f0f;
+         font-weight: bold;
+    }
+
+     
+}
