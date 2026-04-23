@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import style from "./Join.module.css";
+
 import { Input, Button } from "@mui/material";
 import io from "socket.io-client";
 
-const Join = () => {
+const Join = (props) => {
   const usernameRef = useRef();
 
   const handleSubmit = async () => {
@@ -13,24 +14,36 @@ const Join = () => {
     const socket = io.connect("http://localhost:3001");
     socket.emit("set_username", username);
 
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter") {
-            handleSubmit();
-        }
+    props.setChatVisibility(true);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
     }
   };
   return (
-    <div>
-      <h2>bem-vindo ao DevChat</h2>
-      <Input inputRef={usernameRef} placeholder="Nome de usuário" onKeyDown={handleKeyPress()} />
-      <Button
-        sx={{ mt: 2, mb: 2 }}
-        variant="contained"
-        onClick={() => handleSubmit()}
-      >
-        Entrar
-      </Button>
-    </div>
+    <>
+      <div className={style.dev_logo}>
+        <img src="" alt="Logo do DevChat" />
+      </div>
+
+      <div className={style.join_container}>
+        <h2>Bem-vindo ao devChat!</h2>
+        <Input
+          inputRef={usernameRef}
+          placeholder="Nome de usuário"
+          onKeyDown={handleKeyPress}
+        />
+        <Button
+          sx={{ mt: 2, mb: 2 }}
+          variant="contained"
+          onClick={() => handleSubmit()}
+        >
+          Entrar
+        </Button>
+      </div>
+    </>
   );
 };
 
