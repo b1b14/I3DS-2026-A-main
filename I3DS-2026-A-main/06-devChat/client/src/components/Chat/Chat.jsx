@@ -2,10 +2,12 @@ import style from "./Chat.module.css";
 
 import { Input } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Chat = (props) => {
   const [messageList, setMessageList] = useState([]);
+
+  const messageRef = useRef();
 
   useEffect(() => {
     // Registra o listener para o evento "receive_message"
@@ -20,7 +22,7 @@ const Chat = (props) => {
     return () => props.socket.off("receive_message");
   }, [props.socket]);
 
-   const handleSubmit = () => {
+  const handleSubmit = () => {
     const message = messageRef.current.value;
 
     if (!message.trim()) return;
@@ -28,7 +30,7 @@ const Chat = (props) => {
     props.socket.emit("message", message);
 
     messageRef.current.value = "";
-    message.Ref.current.focus();
+    messageRef.current.focus();
   };
 
   const getEnterKey = (e) => {

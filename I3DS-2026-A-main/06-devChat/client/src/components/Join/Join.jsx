@@ -4,6 +4,8 @@ import style from "./Join.module.css";
 import { Input, Button } from "@mui/material";
 import io from "socket.io-client";
 
+import logo from "../../assets/devChat.png";
+
 const Join = (props) => {
   const usernameRef = useRef();
 
@@ -11,9 +13,10 @@ const Join = (props) => {
     const username = usernameRef.current.value;
     if (!username.trim()) return;
 
-    const socket = io.connect("http://localhost:3001");
+    const socket = io.connect("http://168.1.177:3000");
     socket.emit("set_username", username);
 
+    props.setSocket(socket);
     props.setChatVisibility(true);
   };
 
@@ -25,7 +28,7 @@ const Join = (props) => {
   return (
     <>
       <div className={style.dev_logo}>
-        <img src="" alt="Logo do DevChat" />
+        <img src={logo} alt="Logo do DevChat" />
       </div>
 
       <div className={style.join_container}>
