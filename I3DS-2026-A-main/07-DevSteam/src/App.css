@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #111;
+}
+
+.app {
+  min-height: 100vh;
+  background: #12243a;
+  color: white;
+  padding: 20px 60px;
+}
+
+.container {
+  margin-top: 40px;
+}
+
+Header{
+display: flex;
+background-color: #111;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 60px;
+}

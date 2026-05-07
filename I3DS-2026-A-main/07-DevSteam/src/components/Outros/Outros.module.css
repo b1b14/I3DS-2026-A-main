@@ -1,0 +1,76 @@
+.outros-jogos {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centraliza os cards */
+  gap: 20px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.preco {
+  text-align: right;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.info-card button {
+  width: 100%;
+  background: #84bd00;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.outros-jogos {
+  margin-top: 60px;
+}
+
+.jogo-horizontal {
+  width: 100%;
+  max-width: 900px;
+  height: 110px;
+  background: #2e8fc0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.jogo-horizontal img {
+  width: 220px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.jogo-info {
+  flex: 1;
+  padding: 15px;
+}
+
+.jogo-info h3 {
+  font-size: 18px;
+}
+
+.jogo-info p {
+  font-size: 12px;
+  margin: 8px 0;
+}
+
+.jogo-info span {
+  color: #d6ff00;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.jogo-horizontal button {
+  margin-right: 20px;
+  background: #84bd00;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 11px;
+}
