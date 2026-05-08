@@ -1,4 +1,5 @@
-import style from "./Outros.module.css"
+import style from "./Outros.module.css";
+import CS from "../../assets/CS.jpg";
 
 const outrosJogos = [1, 2, 3, 4];
 
@@ -9,10 +10,7 @@ function Outros() {
 
       {outrosJogos.map((item, index) => (
         <div className={style["jogo-horizontal"]} key={index}>
-          <img
-            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500&auto=format&fit=crop"
-            alt="CS GO"
-          />
+          <img src={CS} alt="CS GO" />
 
           <div className={style["jogo-info"]}>
             <h3>COUNTER STRIKE: GLOBAL OFFENSIVE</h3>
@@ -27,4 +25,4 @@ function Outros() {
   );
 }
 
-export default Outros
+export default Outros;

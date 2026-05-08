@@ -1,20 +1,27 @@
-import "./App.css"
+import { useState } from "react";
+import "./App.css";
 import Header from "./components/Header/Header";
 import Promocoes from "./components/Promocoes/Promocoes";
 import Outros from "./components/Outros/Outros";
+import Login from "./Pages/Login/Login";
 
-function App(){
+function App() {
+  const [pagina, setPagina] = useState("home");
+
   return (
     <div className="app">
-      <Header />
+      <Header onLoginClick={() => setPagina("login")} />
 
-      <div className="container">
-        <Promocoes />
-        <Outros />
-      </div> 
-
+      {pagina === "home" ? (
+        <div className="container">
+          <Promocoes />
+          <Outros />
+        </div>
+      ) : (
+        <Login onVoltar={() => setPagina("home")} />
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
