@@ -3,27 +3,30 @@ section h2 {
   font-size: 20px;
 }
 
-.promocoes{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.promocoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.promocoes h2{
-    margin-bottom: 25px;
-    color: white;
+.promocoes h2 {
+  margin-bottom: 25px;
+  color: white;
 }
 
-.cards-promocao{
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    width: 100%;
+.cards-promocao {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 .card {
   width: 220px;
   background: #2e8fc0;
+  display: flex;
+  flex-direction: column;
 }
 
 .card img {
@@ -34,6 +37,9 @@ section h2 {
 
 .info-card {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .tag {
@@ -54,12 +60,44 @@ section h2 {
   font-weight: bold;
 }
 
-.info-card button {
+.descricao {
+  margin: 8px 0 12px;
+  color: #cfd8e3;
+  line-height: 1.4;
+}
+
+.descricaoCortada {
+  min-height: 78px;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.acoes-card {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-carrinho {
   width: 100%;
   background: #84bd00;
   border: none;
   padding: 10px;
   color: white;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.btn-ler-mais {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #84bd00;
+  padding: 8px;
+  color: #e9ffbe;
   font-size: 10px;
   cursor: pointer;
 }

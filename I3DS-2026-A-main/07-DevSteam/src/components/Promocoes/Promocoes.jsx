@@ -1,7 +1,10 @@
+import { useState } from "react";
 import style from "./Promocoes.module.css";
 import LoL from "../../assets/LoL.jpg";
 import Dota2 from "../../assets/Dota2.jpg";
 import Valorant from "../../assets/Valorant.jpg";
+
+const LIMITE_DESCRICAO = 140;
 
 const promocoes = [
   {
@@ -15,43 +18,79 @@ const promocoes = [
     nome: "Dota 2",
     imagem: Dota2,
     preco: "R$99,90",
-    descricao: "Dota 2 é um jogo online de estratégia do gênero MOBA, onde duas equipes de cinco jogadores batalham para destruir a base adversária. Cada jogador controla um herói com habilidades únicas e precisa trabalhar em equipe, criar estratégias e evoluir durante a partida para vencer.",
+    descricao:
+      "Dota 2 é um jogo online de estratégia do gênero MOBA, onde duas equipes de cinco jogadores batalham para destruir a base adversária. Cada jogador controla um herói com habilidades únicas e precisa trabalhar em equipe, criar estratégias e evoluir durante a partida para vencer.",
   },
   {
     nome: "Valorant",
     imagem: Valorant,
     preco: "R$99,90",
-    descricao: "Valorant é um jogo online de tiro tático em primeira pessoa, desenvolvido pela Riot Games. Duas equipes competem em partidas estratégicas, onde cada jogador escolhe um agente com habilidades especiais. O objetivo varia entre plantar ou desarmar a Spike e eliminar o time adversário.",
+    descricao:
+      "Valorant é um jogo online de tiro tático em primeira pessoa, desenvolvido pela Riot Games. Duas equipes competem em partidas estratégicas, onde cada jogador escolhe um agente com habilidades especiais. O objetivo varia entre plantar ou desarmar a Spike e eliminar o time adversário.",
   },
 ];
 
 function Promocoes({ onCarrinhoClick }) {
+  const [descricoesExpandidas, setDescricoesExpandidas] = useState({});
+
+  const alternarDescricao = (index) => {
+    setDescricoesExpandidas((estadoAtual) => ({
+      ...estadoAtual,
+      [index]: !estadoAtual[index],
+    }));
+  };
+
   return (
     <section className={style.promocoes}>
       <h2>PROMOÇÕES</h2>
 
       <div className={style["cards-promocao"]}>
-        {promocoes.map((jogo, index) => (
-          <div className={style.card} key={index}>
-            <img src={jogo.imagem} alt={jogo.nome} />
+        {promocoes.map((jogo, index) => {
+          const descricaoLonga = jogo.descricao.length > LIMITE_DESCRICAO;
+          const expandida = !!descricoesExpandidas[index];
 
-            <div className={style["info-card"]}>
-              <span className={style.tag}>OFERTA EXCLUSIVA</span>
+          return (
+            <div className={style.card} key={index}>
+              <img src={jogo.imagem} alt={jogo.nome} />
 
-              <div className={style.desconto}>-50%</div>
+              <div className={style["info-card"]}>
+                <span className={style.tag}>OFERTA EXCLUSIVA</span>
 
-              <div className={style.preco}>{jogo.preco}</div>
+                <div className={style.desconto}>-50%</div>
 
-              <p style={{ margin: "8px 0 12px", color: "#cfd8e3" }}>
-                {jogo.descricao}
-              </p>
+                <div className={style.preco}>{jogo.preco}</div>
 
-              <button onClick={() => onCarrinhoClick(jogo)}>
-                ADICIONAR AO CARRINHO
-              </button>
+                <p
+                  className={`${style.descricao} ${
+                    !expandida ? style.descricaoCortada : ""
+                  }`}
+                >
+                  {jogo.descricao}
+                </p>
+
+                <div className={style["acoes-card"]}>
+                  {descricaoLonga && (
+                    <button
+                      type="button"
+                      className={style["btn-ler-mais"]}
+                      onClick={() => alternarDescricao(index)}
+                    >
+                      {expandida ? "LER MENOS" : "LER MAIS"}
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    className={style["btn-carrinho"]}
+                    onClick={() => onCarrinhoClick(jogo)}
+                  >
+                    ADICIONAR AO CARRINHO
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
