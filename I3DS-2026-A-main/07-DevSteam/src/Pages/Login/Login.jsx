@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   function handleLogin() {
     console.log("Email:", email, "Senha:", senha);
     // aqui você futuramente conecta com uma API
+    if (onLoginSuccess) {
+      onLoginSuccess();
+    }
   }
 
   return (

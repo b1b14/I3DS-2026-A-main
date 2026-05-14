@@ -15,7 +15,7 @@ function Outros() {
           <div className={style["jogo-info"]}>
             <h3>COUNTER STRIKE: GLOBAL OFFENSIVE</h3>
             <p>Ação, Estratégia, Multiplayer.</p>
-            <span>R$99,90</span>
+            <span>R$00,00</span>
           </div>
 
           <button className={style.button}>ADICIONAR AO CARRINHO</button>

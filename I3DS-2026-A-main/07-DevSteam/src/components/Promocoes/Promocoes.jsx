@@ -1,28 +1,31 @@
-// ...existing code...
-import style from "./Promocoes.module.css"
-import LoL from "../../assets/LoL.jpg"
-import Dota2 from "../../assets/Dota2.jpg"
-import Valorant from "../../assets/Valorant.jpg"
+import style from "./Promocoes.module.css";
+import LoL from "../../assets/LoL.jpg";
+import Dota2 from "../../assets/Dota2.jpg";
+import Valorant from "../../assets/Valorant.jpg";
 
 const promocoes = [
   {
     nome: "League Of Legends",
     imagem: LoL,
     preco: "R$99,90",
+    descricao:
+      "League of Legends (LoL) é um jogo online de estratégia em equipes, onde dois times de cinco jogadores tentam destruir a base inimiga. Cada jogador escolhe um campeão com habilidades únicas e trabalha em equipe para vencer a partida.",
   },
   {
     nome: "Dota 2",
     imagem: Dota2,
     preco: "R$99,90",
+    descricao: "Dota 2 é um jogo online de estratégia do gênero MOBA, onde duas equipes de cinco jogadores batalham para destruir a base adversária. Cada jogador controla um herói com habilidades únicas e precisa trabalhar em equipe, criar estratégias e evoluir durante a partida para vencer.",
   },
   {
     nome: "Valorant",
     imagem: Valorant,
     preco: "R$99,90",
+    descricao: "Valorant é um jogo online de tiro tático em primeira pessoa, desenvolvido pela Riot Games. Duas equipes competem em partidas estratégicas, onde cada jogador escolhe um agente com habilidades especiais. O objetivo varia entre plantar ou desarmar a Spike e eliminar o time adversário.",
   },
 ];
 
-export default function Promocoes() {
+function Promocoes({ onCarrinhoClick }) {
   return (
     <section className={style.promocoes}>
       <h2>PROMOÇÕES</h2>
@@ -39,7 +42,13 @@ export default function Promocoes() {
 
               <div className={style.preco}>{jogo.preco}</div>
 
-              <button>ADICIONAR AO CARRINHO</button>
+              <p style={{ margin: "8px 0 12px", color: "#cfd8e3" }}>
+                {jogo.descricao}
+              </p>
+
+              <button onClick={() => onCarrinhoClick(jogo)}>
+                ADICIONAR AO CARRINHO
+              </button>
             </div>
           </div>
         ))}
@@ -47,4 +56,5 @@ export default function Promocoes() {
     </section>
   );
 }
-// ...existing code...
+
+export default Promocoes;
