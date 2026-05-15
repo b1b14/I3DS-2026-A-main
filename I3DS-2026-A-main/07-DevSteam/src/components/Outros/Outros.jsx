@@ -29,7 +29,10 @@ const outrosJogos = [ {
   },
 ];
 
-function Outros() {
+
+
+
+-function Outros({ onCarrinhoClick }) {
   return (
     <section className={style["outros-jogos"]}>
       <h2>OUTROS JOGOS</h2>
@@ -44,7 +47,13 @@ function Outros() {
             <span>{item.preco}</span>
           </div>
 
-          <button className={style.button}>ADICIONAR AO CARRINHO</button>
+          <button
+            type="button"
+            className={style["btn-carrinho"]}
+            onClick={() => onCarrinhoClick(item)}
+          >
+            ADICIONAR AO CARRINHO
+          </button>
         </div>
       ))}
     </section>

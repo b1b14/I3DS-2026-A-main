@@ -58,7 +58,7 @@ function App() {
       ) : (
         <div className="container">
           <Promocoes onCarrinhoClick={adicionarAoCarrinho} />
-          <Outros />
+          <Outros onCarrinhoClick={adicionarAoCarrinho} />
         </div>
       )}
     </div>
